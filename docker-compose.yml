@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  controller:
+    build:
+      context: ./controller
+    container_name: controller
+    volumes:
+      - ./controller:/controller
+    tty: true
+    depends_on:
+      - target1
+      - target2
+    networks:
+      - ansible-net
+
+  target1:
+    build:
+      context: ./targets
+    container_name: target1
+    tty: true
+    networks:
+      - ansible-net
+
+  target2:
+    build:
+      context: ./targets
+    container_name: target2
+    tty: true
+    networks:
+      - ansible-net
+
+networks:
+  ansible-net:
